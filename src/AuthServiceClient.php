@@ -40,15 +40,9 @@ class AuthServiceClient extends Model
     public $pathRefreshTokens = '/auth/get-token-by-refresh';
 
     /**
-     * @param $config
+     * @var string
      */
-    public function __construct($config = [])
-    {
-        $this->authServiceApiKey = $_ENV['AUTH_SERVICE_API_KEY'] ?? null;
-        $this->baseUrl = $_ENV['AUTH_BASE_URL'] ?? null;
-
-        parent::__construct($config);
-    }
+    public $authParameterName = 'app_env_key';
 
     /**
      * @param string $token
@@ -97,16 +91,17 @@ class AuthServiceClient extends Model
     /**
      * @param string $path
      * @param array $queryParams
+     * @param bool $auth
      * @return Response
      */
-    public function getRequest($path = '/', $queryParams = [])
+    public function getRequest($path = '/', $queryParams = [], $auth = true)
     {
         if (!$this->baseUrl) {
             throw new InvalidConfigException('BaseUrl is empty');
         }
 
-        if ($this->authServiceApiKey) {
-            $queryParams['app_env_key'] = $this->authServiceApiKey;
+        if ($auth) {
+            $queryParams[$this->authParameterName] = $this->authServiceApiKey;
         }
 
         $url = $this->baseUrl . $path . '?' . http_build_query($queryParams);
