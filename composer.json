@@ -1,0 +1,22 @@
+{
+  "name": "brezgalov/pt-auth-service-client",
+  "description": "client for auth-microservice",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oleg Brezgalov",
+      "email": "oleg.brezgalov@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "yiisoft/yii2": ">=2.0.6",
+    "yiisoft/yii2-httpclient": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Brezgalov\\AuthServiceClient\\": "src/"
+    }
+  }
+}
