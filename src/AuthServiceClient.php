@@ -55,11 +55,23 @@ class AuthServiceClient extends Model
 
     /**
      * @param string $phone
+     * @param string $smsTextPattern
+     * @param string $smsCodeToken
      * @return Response
      */
-    public function sendSmsCodeOnPhoneRequest($phone)
+    public function sendSmsCodeOnPhoneRequest($phone, $smsTextPattern = null, $smsCodeToken = null)
     {
-        return $this->getRequest($this->pathSendSmsCodeOnPhone, ['phone' => $phone]);
+        $params = ['phone' => $phone];
+
+        if ($smsTextPattern) {
+            $params['message_pattern'] = $smsTextPattern;
+        }
+
+        if ($smsCodeToken) {
+            $params['message_code_token'] = $smsCodeToken;
+        }
+
+        return $this->getRequest($this->pathSendSmsCodeOnPhone, $params);
     }
 
     /**
