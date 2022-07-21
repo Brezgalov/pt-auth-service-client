@@ -46,6 +46,16 @@ class AuthServiceClient extends Model
     public $authParameterName = 'app_env_key';
 
     /**
+     * @var string
+     */
+    public $testParameterName = 'is_test';
+
+    /**
+     * @var bool
+     */
+    public $testEnv = false;
+
+    /**
      * @param string $token
      * @return Request
      */
@@ -115,6 +125,10 @@ class AuthServiceClient extends Model
 
         if ($auth) {
             $queryParams[$this->authParameterName] = $this->authServiceApiKey;
+        }
+
+        if ($this->testEnv) {
+            $queryParams[$this->testParameterName] = 1;
         }
 
         $url = $this->baseUrl . $path . '?' . http_build_query($queryParams);
