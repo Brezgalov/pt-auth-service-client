@@ -23,6 +23,11 @@ class AuthServiceClient extends Model
     /**
      * @var string
      */
+    public $activityId;
+
+    /**
+     * @var string
+     */
     public $pathGetProfileByToken = '/auth/get-profile';
 
     /**
@@ -51,9 +56,25 @@ class AuthServiceClient extends Model
     public $testParameterName = 'is_test';
 
     /**
+     * @var string
+     */
+    public $activityIdParameterName = 'activity_id';
+
+    /**
      * @var bool
      */
     public $testEnv = false;
+
+    /**
+     * @param $value
+     * @return $this
+     */
+    public function setActivityId($value)
+    {
+        $this->activityId = $value;
+
+        return $this;
+    }
 
     /**
      * @param string $token
@@ -131,7 +152,11 @@ class AuthServiceClient extends Model
             $queryParams[$this->testParameterName] = 1;
         }
 
-        $url = $this->baseUrl . $path . '?' . http_build_query($queryParams);
+        if ($this->activityId) {
+            $queryParams[$this->activityIdParameterName] = $this->activityId;
+        }
+
+        $url = "{$this->baseUrl}{$path}?" . http_build_query($queryParams);
 
         $client = new Client();
         $request = $client->createRequest()->setUrl($url);
