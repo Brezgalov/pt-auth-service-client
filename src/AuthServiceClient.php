@@ -53,11 +53,6 @@ class AuthServiceClient extends Model
     /**
      * @var string
      */
-    public $testParameterName = 'is_test';
-
-    /**
-     * @var string
-     */
     public $activityIdParameterName = 'activity_id';
 
     /**
@@ -103,7 +98,9 @@ class AuthServiceClient extends Model
             $params['message_code_token'] = $smsCodeToken;
         }
 
-        return $this->getRequest($this->pathSendSmsCodeOnPhone, $params);
+        return $this->getRequest($this->pathSendSmsCodeOnPhone)
+            ->setMethod('POST')
+            ->setData($params);
     }
 
     /**
@@ -113,10 +110,12 @@ class AuthServiceClient extends Model
      */
     public function getTokenBySmsCodeRequest($code, $phone)
     {
-        return $this->getRequest($this->pathGetTokenBySmsCode, [
-            'code' => $code,
-            'phone' => $phone
-        ]);
+        return $this->getRequest($this->pathGetTokenBySmsCode)
+            ->setMethod('POST')
+            ->setData([
+                'code' => $code,
+                'phone' => $phone
+            ]);
     }
 
     /**
@@ -126,10 +125,12 @@ class AuthServiceClient extends Model
      */
     public function refreshTokenRequest($token, $refreshToken)
     {
-        return $this->getRequest($this->pathRefreshTokens, [
-            'token' => $token,
-            'refresh_token' => $refreshToken
-        ]);
+        return $this->getRequest($this->pathRefreshTokens)
+            ->setMethod('POST')
+            ->setData([
+                'token' => $token,
+                'refresh_token' => $refreshToken
+            ]);
     }
 
     /**
@@ -146,10 +147,6 @@ class AuthServiceClient extends Model
 
         if ($auth) {
             $queryParams[$this->authParameterName] = $this->authServiceApiKey;
-        }
-
-        if ($this->testEnv) {
-            $queryParams[$this->testParameterName] = 1;
         }
 
         if ($this->activityId) {
