@@ -78,7 +78,7 @@ class AuthServiceClient extends Model
 
     /**
      * @param string $token
-     * @return Request
+     * @return Response
      */
     public function getProfileByTokenRequest($token)
     {
@@ -89,7 +89,7 @@ class AuthServiceClient extends Model
      * @param string $phone
      * @param string $smsTextPattern
      * @param string $smsCodeToken
-     * @return Request
+     * @return Response
      */
     public function sendSmsCodeOnPhoneRequest($phone, $smsTextPattern = null, $smsCodeToken = null)
     {
@@ -109,7 +109,7 @@ class AuthServiceClient extends Model
     /**
      * @param string $code
      * @param string $phone
-     * @return Request
+     * @return Response
      */
     public function getTokenBySmsCodeRequest($code, $phone)
     {
@@ -122,7 +122,7 @@ class AuthServiceClient extends Model
     /**
      * @param string $token
      * @param string $refreshToken
-     * @return Request
+     * @return Response
      */
     public function refreshTokenRequest($token, $refreshToken)
     {
@@ -136,7 +136,7 @@ class AuthServiceClient extends Model
      * @param string $path
      * @param array $queryParams
      * @param bool $auth
-     * @return Request
+     * @return Response
      */
     public function getRequest($path = '/', $queryParams = [], $auth = true)
     {
