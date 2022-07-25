@@ -2,7 +2,7 @@
 
 namespace Brezgalov\AuthServiceClient;
 
-use http\Client\Request;
+use yii\httpclient\Request;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\httpclient\Client;
@@ -78,7 +78,7 @@ class AuthServiceClient extends Model
 
     /**
      * @param string $token
-     * @return Response
+     * @return Request
      */
     public function getProfileByTokenRequest($token)
     {
@@ -89,7 +89,7 @@ class AuthServiceClient extends Model
      * @param string $phone
      * @param string $smsTextPattern
      * @param string $smsCodeToken
-     * @return Response
+     * @return Request
      */
     public function sendSmsCodeOnPhoneRequest($phone, $smsTextPattern = null, $smsCodeToken = null)
     {
@@ -109,7 +109,7 @@ class AuthServiceClient extends Model
     /**
      * @param string $code
      * @param string $phone
-     * @return Response
+     * @return Request
      */
     public function getTokenBySmsCodeRequest($code, $phone)
     {
@@ -122,7 +122,7 @@ class AuthServiceClient extends Model
     /**
      * @param string $token
      * @param string $refreshToken
-     * @return Response
+     * @return Request
      */
     public function refreshTokenRequest($token, $refreshToken)
     {
@@ -136,7 +136,7 @@ class AuthServiceClient extends Model
      * @param string $path
      * @param array $queryParams
      * @param bool $auth
-     * @return Response
+     * @return Request
      */
     public function getRequest($path = '/', $queryParams = [], $auth = true)
     {
