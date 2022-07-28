@@ -2,13 +2,10 @@
 
 namespace Brezgalov\AuthServiceClient;
 
+use Brezgalov\BaseApiClient\BaseApiClient;
 use yii\httpclient\Request;
-use yii\base\InvalidConfigException;
-use yii\base\Model;
-use yii\httpclient\Client;
-use yii\httpclient\Response;
 
-class AuthServiceClient extends Model
+class AuthServiceClient extends BaseApiClient
 {
     /**
      * @var string
@@ -56,11 +53,6 @@ class AuthServiceClient extends Model
     public $activityIdParameterName = 'activity_id';
 
     /**
-     * @var bool
-     */
-    public $testEnv = false;
-
-    /**
      * @param $value
      * @return $this
      */
@@ -77,7 +69,7 @@ class AuthServiceClient extends Model
      */
     public function getProfileByTokenRequest($token)
     {
-        return $this->getRequest($this->pathGetProfileByToken, ['token' => $token]);
+        return $this->prepareRequest($this->pathGetProfileByToken, ['token' => $token]);
     }
 
     /**
@@ -98,7 +90,7 @@ class AuthServiceClient extends Model
             $params['message_code_token'] = $smsCodeToken;
         }
 
-        return $this->getRequest($this->pathSendSmsCodeOnPhone)
+        return $this->prepareRequest($this->pathSendSmsCodeOnPhone)
             ->setMethod('POST')
             ->setData($params);
     }
@@ -110,7 +102,7 @@ class AuthServiceClient extends Model
      */
     public function getTokenBySmsCodeRequest($code, $phone)
     {
-        return $this->getRequest($this->pathGetTokenBySmsCode)
+        return $this->prepareRequest($this->pathGetTokenBySmsCode)
             ->setMethod('POST')
             ->setData([
                 'code' => $code,
@@ -125,7 +117,7 @@ class AuthServiceClient extends Model
      */
     public function refreshTokenRequest($token, $refreshToken)
     {
-        return $this->getRequest($this->pathRefreshTokens)
+        return $this->prepareRequest($this->pathRefreshTokens)
             ->setMethod('POST')
             ->setData([
                 'token' => $token,
@@ -133,18 +125,8 @@ class AuthServiceClient extends Model
             ]);
     }
 
-    /**
-     * @param string $path
-     * @param array $queryParams
-     * @param bool $auth
-     * @return Request
-     */
-    public function getRequest($path = '/', $queryParams = [], $auth = true)
+    public function prepareRequest(string $route, array $queryParams = [], $auth = true, Request $request = null)
     {
-        if (!$this->baseUrl) {
-            throw new InvalidConfigException('BaseUrl is empty');
-        }
-
         if ($auth) {
             $queryParams[$this->authParameterName] = $this->authServiceApiKey;
         }
@@ -153,11 +135,6 @@ class AuthServiceClient extends Model
             $queryParams[$this->activityIdParameterName] = $this->activityId;
         }
 
-        $url = "{$this->baseUrl}{$path}?" . http_build_query($queryParams);
-
-        $client = new Client();
-        $request = $client->createRequest()->setUrl($url);
-
-        return $request;
+        return parent::prepareRequest($route, $queryParams, $request);
     }
 }

@@ -12,11 +12,22 @@
   "require": {
     "php": ">=7.2.0",
     "yiisoft/yii2": ">=2.0.6",
-    "yiisoft/yii2-httpclient": "^2.0"
+    "brezgalov/yii2-base-api-client": "dev-master"
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Brezgalov\\AuthServiceClient\\": "src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
     }
   }
 }
