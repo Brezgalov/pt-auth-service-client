@@ -125,6 +125,14 @@ class AuthServiceClient extends BaseApiClient
             ]);
     }
 
+    /**
+     * @param string $route
+     * @param array $queryParams
+     * @param bool $auth
+     * @param Request|null $request
+     * @return \yii\httpclient\Message|Request
+     * @throws \yii\base\InvalidConfigException
+     */
     public function prepareRequest(string $route, array $queryParams = [], $auth = true, Request $request = null)
     {
         if ($auth) {
