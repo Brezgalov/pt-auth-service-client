@@ -9,19 +9,33 @@ use yii\base\Component;
 /**
  * Class Urls
  * @package Brezgalov\AuthServiceClient
- *
- * @property AuthUrls $auth
- * @property AdminUrls $admin
  */
 class Urls extends Component
 {
-    public function getAdmin()
+    /**
+     * @var AdminUrls
+     */
+    public $admin;
+
+    /**
+     * @var AuthUrls
+     */
+    public $auth;
+
+    /**
+     * Urls constructor.
+     * @param array $config
+     */
+    public function __construct($config = [])
     {
+        parent::__construct($config);
 
-    }
+        if (empty($this->admin)) {
+            $this->admin = new AdminUrls();
+        }
 
-    public function getAuth()
-    {
-
+        if (empty($this->auth)) {
+            $this->auth = new AuthUrls();
+        }
     }
 }
