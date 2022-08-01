@@ -3,6 +3,7 @@
 namespace Brezgalov\AuthServiceClient;
 
 use Brezgalov\BaseApiClient\BaseApiClient;
+use yii\base\InvalidConfigException;
 use yii\httpclient\Request;
 
 class AuthServiceClient extends BaseApiClient
@@ -25,22 +26,27 @@ class AuthServiceClient extends BaseApiClient
     /**
      * @var string
      */
-    public $pathGetProfileByToken = '/auth/get-profile';
+    public $adminPublicKey;
 
     /**
      * @var string
      */
-    public $pathSendSmsCodeOnPhone = '/auth/send-sms';
+    public $adminSecretKey;
+
+    /**
+     * @var Urls
+     */
+    public $urls;
 
     /**
      * @var string
      */
-    public $pathGetTokenBySmsCode = '/auth/get-token-by-sms';
+    public $adminKeyParam = 'api_key';
 
     /**
      * @var string
      */
-    public $pathRefreshTokens = '/auth/get-token-by-refresh';
+    public $adminPublicKeyParam = 'api_public_key';
 
     /**
      * @var string
@@ -53,10 +59,24 @@ class AuthServiceClient extends BaseApiClient
     public $activityIdParameterName = 'activity_id';
 
     /**
-     * @param $value
+     * AuthServiceClient constructor.
+     * @param array $config
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        if (empty($this->urls)) {
+            $this->urls = \Yii::createObject(Urls::class);
+        }
+    }
+
+    /**
+     * @param string $value
      * @return $this
      */
-    public function setActivityId($value)
+    public function setActivityId(string $value)
     {
         $this->activityId = $value;
 
@@ -67,9 +87,9 @@ class AuthServiceClient extends BaseApiClient
      * @param string $token
      * @return Request
      */
-    public function getProfileByTokenRequest($token)
+    public function getProfileByTokenRequest(string $token)
     {
-        return $this->prepareRequest($this->pathGetProfileByToken, ['token' => $token]);
+        return $this->prepareRequest($this->urls->auth->getProfileByToken, ['token' => $token]);
     }
 
     /**
@@ -78,7 +98,7 @@ class AuthServiceClient extends BaseApiClient
      * @param string $smsCodeToken
      * @return Request
      */
-    public function sendSmsCodeOnPhoneRequest($phone, $smsTextPattern = null, $smsCodeToken = null)
+    public function sendSmsCodeOnPhoneRequest(string $phone, string $smsTextPattern = null, string $smsCodeToken = null)
     {
         $params = ['phone' => $phone];
 
@@ -90,7 +110,7 @@ class AuthServiceClient extends BaseApiClient
             $params['message_code_token'] = $smsCodeToken;
         }
 
-        return $this->prepareRequest($this->pathSendSmsCodeOnPhone)
+        return $this->prepareRequest($this->urls->auth->sendSmsCodeOnPhone)
             ->setMethod('POST')
             ->setData($params);
     }
@@ -100,9 +120,9 @@ class AuthServiceClient extends BaseApiClient
      * @param string $phone
      * @return Request
      */
-    public function getTokenBySmsCodeRequest($code, $phone)
+    public function getTokenBySmsCodeRequest(string $code, string $phone)
     {
-        return $this->prepareRequest($this->pathGetTokenBySmsCode)
+        return $this->prepareRequest($this->urls->auth->getTokenBySmsCode)
             ->setMethod('POST')
             ->setData([
                 'code' => $code,
@@ -115,14 +135,39 @@ class AuthServiceClient extends BaseApiClient
      * @param string $refreshToken
      * @return Request
      */
-    public function refreshTokenRequest($token, $refreshToken)
+    public function refreshTokenRequest(string $token, string $refreshToken)
     {
-        return $this->prepareRequest($this->pathRefreshTokens)
+        return $this->prepareRequest($this->urls->auth->refreshTokens)
             ->setMethod('POST')
             ->setData([
                 'token' => $token,
                 'refresh_token' => $refreshToken
             ]);
+    }
+
+    /**
+     * @param string $phone
+     * @return \yii\httpclient\Message|Request
+     * @throws InvalidConfigException
+     */
+    public function getTokenByPhoneRequest(string $phone)
+    {
+        if (empty($this->adminPublicKey)) {
+            throw new InvalidConfigException("AdminPublicKey is required");
+        }
+
+        if (empty($this->adminSecretKey)) {
+            throw new InvalidConfigException("AdminSecretKey is required");
+        }
+
+        return $this->prepareRequest($this->urls->admin->getTokenByPhone, [
+            $this->adminPublicKeyParam => $this->adminPublicKey,
+            $this->adminKeyParam => AdminKeyHelper::getKey(
+                $this->adminPublicKey,
+                $this->adminSecretKey
+            ),
+            'phone' => $phone,
+        ], false);
     }
 
     /**
