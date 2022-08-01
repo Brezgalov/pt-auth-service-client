@@ -13,7 +13,7 @@ class AdminKeyHelper
     public static function getKey(string $publicKey, string $secretKey, int $currentTime = null)
     {
         if (empty($currentTime)) {
-            $currentTime = time();
+            $currentTime = strtotime(date('Y-m-d H:i:00'));
         }
 
         return hash('sha256', "{$publicKey}/{$currentTime}/{$secretKey}");
