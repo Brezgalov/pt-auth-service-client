@@ -16,7 +16,7 @@ class AuthServiceClient extends BaseApiClient
     /**
      * @var string
      */
-    public $authServiceApiKey;
+    public $appEnvKey;
 
     /**
      * @var string
@@ -51,7 +51,7 @@ class AuthServiceClient extends BaseApiClient
     /**
      * @var string
      */
-    public $authParameterName = 'app_env_key';
+    public $appEnvKeyParameterName = 'app_env_key';
 
     /**
      * @var string
@@ -167,21 +167,21 @@ class AuthServiceClient extends BaseApiClient
                 $this->adminSecretKey
             ),
             'phone' => $phone,
-        ], false);
+        ]);
     }
 
     /**
      * @param string $route
      * @param array $queryParams
-     * @param bool $auth
+     * @param bool $useAppEnv
      * @param Request|null $request
      * @return \yii\httpclient\Message|Request
      * @throws \yii\base\InvalidConfigException
      */
-    public function prepareRequest(string $route, array $queryParams = [], $auth = true, Request $request = null)
+    public function prepareRequest(string $route, array $queryParams = [], $useAppEnv = true, Request $request = null)
     {
-        if ($auth) {
-            $queryParams[$this->authParameterName] = $this->authServiceApiKey;
+        if ($useAppEnv) {
+            $queryParams[$this->appEnvKeyParameterName] = $this->appEnvKey;
         }
 
         if ($this->activityId) {
