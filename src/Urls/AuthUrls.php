@@ -20,7 +20,7 @@ class AuthUrls extends Component
      */
     public function getGetProfileByToken()
     {
-        return '/auth/get-profile';
+        return 'auth/get-profile';
     }
 
     /**
@@ -28,7 +28,7 @@ class AuthUrls extends Component
      */
     public function getSendSmsCodeOnPhone()
     {
-        return '/auth/send-sms';
+        return 'auth/send-sms';
     }
 
     /**
@@ -36,7 +36,7 @@ class AuthUrls extends Component
      */
     public function getGetTokenBySmsCode()
     {
-        return '/auth/get-token-by-sms';
+        return 'auth/get-token-by-sms';
     }
 
     /**
@@ -44,6 +44,6 @@ class AuthUrls extends Component
      */
     public function getRefreshTokens()
     {
-        return '/auth/get-token-by-refresh';
+        return 'auth/get-token-by-refresh';
     }
 }

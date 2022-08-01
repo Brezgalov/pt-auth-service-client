@@ -14,6 +14,6 @@ class AdminUrls extends Component
 {
     public function getGetTokenByPhone()
     {
-        return '/admin/get-token-by-phone';
+        return 'admin/get-token-by-phone';
     }
 }
