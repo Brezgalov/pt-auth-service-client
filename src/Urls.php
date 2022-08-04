@@ -4,6 +4,9 @@ namespace Brezgalov\AuthServiceClient;
 
 use Brezgalov\AuthServiceClient\Urls\AdminUrls;
 use Brezgalov\AuthServiceClient\Urls\AuthUrls;
+use Brezgalov\AuthServiceClient\Urls\ProfileUrls;
+use Brezgalov\AuthServiceClient\Urls\SmsAuthUrls;
+use Brezgalov\AuthServiceClient\Urls\TokenUrls;
 use yii\base\Component;
 
 /**
@@ -18,9 +21,19 @@ class Urls extends Component
     public $admin;
 
     /**
-     * @var AuthUrls
+     * @var TokenUrls
      */
-    public $auth;
+    public $token;
+
+    /**
+     * @var SmsAuthUrls
+     */
+    public $smsAuth;
+
+    /**
+     * @var ProfileUrls
+     */
+    public $profile;
 
     /**
      * Urls constructor.
@@ -31,11 +44,19 @@ class Urls extends Component
         parent::__construct($config);
 
         if (empty($this->admin)) {
-            $this->admin = new AdminUrls();
+            $this->admin = \Yii::createObject(AdminUrls::class);
         }
 
-        if (empty($this->auth)) {
-            $this->auth = new AuthUrls();
+        if (empty($this->profile)) {
+            $this->profile = \Yii::createObject(ProfileUrls::class);
+        }
+
+        if (empty($this->token)) {
+            $this->token = \Yii::createObject(TokenUrls::class);
+        }
+
+        if (empty($this->smsAuth)) {
+            $this->smsAuth = \Yii::createObject(ProfileUrls::class);
         }
     }
 }
