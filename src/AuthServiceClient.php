@@ -122,7 +122,7 @@ class AuthServiceClient extends BaseApiClient
      */
     public function getTokenBySmsCodeRequest(string $code, string $phone)
     {
-        return $this->prepareRequest($this->urls->smsAuth->getTokenByCode)
+        return $this->prepareRequest($this->urls->smsAuth->getToken)
             ->setMethod('POST')
             ->setData([
                 'code' => $code,
@@ -152,22 +152,26 @@ class AuthServiceClient extends BaseApiClient
      */
     public function getTokenByPhoneRequest(string $phone)
     {
-        if (empty($this->adminPublicKey)) {
-            throw new InvalidConfigException("AdminPublicKey is required");
-        }
+        $params = $this->buildAdminRequestQueryParams();
+        $params['phone'] = $phone;
 
-        if (empty($this->adminSecretKey)) {
-            throw new InvalidConfigException("AdminSecretKey is required");
-        }
+        return $this->prepareRequest($this->urls->admin->getTokenByPhone, $params);
+    }
 
-        return $this->prepareRequest($this->urls->admin->getTokenByPhone, [
-            $this->adminPublicKeyParam => $this->adminPublicKey,
-            $this->adminKeyParam => AdminKeyHelper::getKey(
-                $this->adminPublicKey,
-                $this->adminSecretKey
-            ),
-            'phone' => $phone,
-        ]);
+    /**
+     * @param string $login
+     * @param string $password
+     * @return \yii\httpclient\Message|Request
+     * @throws InvalidConfigException
+     */
+    public function getTokenByLoginAndPassRequest(string $login,string $password)
+    {
+        return $this->prepareRequest($this->urls->loginAuth->getToken)
+            ->setMethod('POST')
+            ->setData([
+                'login' => trim($login),
+                'password' => trim($password),
+            ]);
     }
 
     /**
@@ -189,5 +193,28 @@ class AuthServiceClient extends BaseApiClient
         }
 
         return parent::prepareRequest($route, $queryParams, $request);
+    }
+
+    /**
+     * @return array
+     * @throws InvalidConfigException
+     */
+    protected function buildAdminRequestQueryParams()
+    {
+        if (empty($this->adminPublicKey)) {
+            throw new InvalidConfigException("AdminPublicKey is required");
+        }
+
+        if (empty($this->adminSecretKey)) {
+            throw new InvalidConfigException("AdminSecretKey is required");
+        }
+
+        return [
+            $this->adminPublicKeyParam => $this->adminPublicKey,
+            $this->adminKeyParam => AdminKeyHelper::getKey(
+                $this->adminPublicKey,
+                $this->adminSecretKey
+            ),
+        ];
     }
 }
