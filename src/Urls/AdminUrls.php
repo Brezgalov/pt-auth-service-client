@@ -8,7 +8,7 @@ use yii\base\Component;
  * Class AdminUrls
  * @package Brezgalov\AuthServiceClient\Urls
  *
- * @property string getTokenByPhone
+ * @property string $getTokenByPhone
  */
 class AdminUrls extends Component
 {

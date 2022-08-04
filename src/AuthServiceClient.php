@@ -89,7 +89,7 @@ class AuthServiceClient extends BaseApiClient
      */
     public function getProfileByTokenRequest(string $token)
     {
-        return $this->prepareRequest($this->urls->auth->getProfileByToken, ['token' => $token]);
+        return $this->prepareRequest($this->urls->profile->get, ['token' => $token]);
     }
 
     /**
@@ -110,7 +110,7 @@ class AuthServiceClient extends BaseApiClient
             $params['message_code_token'] = $smsCodeToken;
         }
 
-        return $this->prepareRequest($this->urls->auth->sendSmsCodeOnPhone)
+        return $this->prepareRequest($this->urls->smsAuth->sendCode)
             ->setMethod('POST')
             ->setData($params);
     }
@@ -122,7 +122,7 @@ class AuthServiceClient extends BaseApiClient
      */
     public function getTokenBySmsCodeRequest(string $code, string $phone)
     {
-        return $this->prepareRequest($this->urls->auth->getTokenBySmsCode)
+        return $this->prepareRequest($this->urls->smsAuth->getTokenByCode)
             ->setMethod('POST')
             ->setData([
                 'code' => $code,
@@ -137,7 +137,7 @@ class AuthServiceClient extends BaseApiClient
      */
     public function refreshTokenRequest(string $token, string $refreshToken)
     {
-        return $this->prepareRequest($this->urls->auth->refreshTokens)
+        return $this->prepareRequest($this->urls->token->refresh)
             ->setMethod('POST')
             ->setData([
                 'token' => $token,

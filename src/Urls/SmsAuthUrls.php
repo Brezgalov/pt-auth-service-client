@@ -8,8 +8,8 @@ use yii\base\Component;
  * Class AuthUrls
  * @package Brezgalov\AuthServiceClient\Urls
  *
- * @property string sendCode
- * @property string getTokenByCode
+ * @property string $sendCode
+ * @property string $getTokenByCode
  */
 class SmsAuthUrls extends Component
 {

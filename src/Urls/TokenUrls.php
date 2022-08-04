@@ -8,7 +8,7 @@ use yii\base\Component;
  * Class AuthUrls
  * @package Brezgalov\AuthServiceClient\Urls
  *
- * @property string refresh
+ * @property string $refresh
  */
 class TokenUrls extends Component
 {
