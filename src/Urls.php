@@ -56,7 +56,7 @@ class Urls extends Component
         }
 
         if (empty($this->smsAuth)) {
-            $this->smsAuth = \Yii::createObject(ProfileUrls::class);
+            $this->smsAuth = \Yii::createObject(SmsAuthUrls::class);
         }
     }
 }
