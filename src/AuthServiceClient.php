@@ -159,6 +159,26 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @param string $phone
+     * @param string|null $login
+     * @param string|null $password
+     * @return \yii\httpclient\Message|Request
+     * @throws InvalidConfigException
+     */
+    public function getRegisterUserRequest(string $phone, string $login = null, string $password = null)
+    {
+        $params = $this->buildAdminRequestQueryParams();
+
+        return $this->prepareRequest($this->urls->admin->registerUser, $params)
+            ->setMethod('POST')
+            ->setData([
+                'phone' => $phone,
+                'login' => $login,
+                'password' => $password,
+            ]);
+    }
+
+    /**
      * @param string $login
      * @param string $password
      * @return \yii\httpclient\Message|Request
