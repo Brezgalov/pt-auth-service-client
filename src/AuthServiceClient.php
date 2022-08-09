@@ -2,6 +2,7 @@
 
 namespace Brezgalov\AuthServiceClient;
 
+use Brezgalov\AuthServiceClient\ResponseAdapters\AuthResponseAdapter;
 use Brezgalov\BaseApiClient\BaseApiClient;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Request;
@@ -116,6 +117,9 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @deprecated
+     * @see AuthServiceClient::getTokenBySmsCode
+     *
      * @param string $code
      * @param string $phone
      * @return Request
@@ -131,6 +135,28 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @param string $code
+     * @param string $phone
+     * @return AuthResponseAdapter
+     * @throws InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function getTokenBySmsCode(string $code, string $phone)
+    {
+        $request = $this->prepareRequest($this->urls->smsAuth->getToken)
+            ->setMethod('POST')
+            ->setData([
+                'code' => $code,
+                'phone' => $phone
+            ]);
+
+        return new AuthResponseAdapter($request, $request->send());
+    }
+
+    /**
+     * @deprecated
+     * @see AuthServiceClient::refreshToken
+     *
      * @param string $token
      * @param string $refreshToken
      * @return Request
@@ -146,6 +172,28 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @param string $token
+     * @param string $refreshToken
+     * @return AuthResponseAdapter
+     * @throws InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function refreshToken(string $token, string $refreshToken)
+    {
+        $request = $this->prepareRequest($this->urls->token->refresh)
+            ->setMethod('POST')
+            ->setData([
+                'token' => $token,
+                'refresh_token' => $refreshToken
+            ]);
+
+        return new AuthResponseAdapter($request, $request->send());
+    }
+
+    /**
+     * @deprecated
+     * @see AuthServiceClient::getTokenByPhone
+     *
      * @param string $phone
      * @return \yii\httpclient\Message|Request
      * @throws InvalidConfigException
@@ -156,6 +204,22 @@ class AuthServiceClient extends BaseApiClient
         $params['phone'] = $phone;
 
         return $this->prepareRequest($this->urls->admin->getTokenByPhone, $params);
+    }
+
+    /**
+     * @param string $phone
+     * @return AuthResponseAdapter
+     * @throws InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function getTokenByPhone(string $phone)
+    {
+        $params = $this->buildAdminRequestQueryParams();
+        $params['phone'] = $phone;
+
+        $request = $this->prepareRequest($this->urls->admin->getTokenByPhone, $params);
+
+        return new AuthResponseAdapter($request, $request->send());
     }
 
     /**
@@ -179,6 +243,9 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @deprecated
+     * @see AuthServiceClient::getTokenByLoginAndPass
+     *
      * @param string $login
      * @param string $password
      * @return \yii\httpclient\Message|Request
@@ -192,6 +259,25 @@ class AuthServiceClient extends BaseApiClient
                 'login' => trim($login),
                 'password' => trim($password),
             ]);
+    }
+
+    /**
+     * @param string $login
+     * @param string $password
+     * @return AuthResponseAdapter
+     * @throws InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function getTokenByLoginAndPass(string $login,string $password)
+    {
+        $request = $this->prepareRequest($this->urls->loginAuth->getToken)
+            ->setMethod('POST')
+            ->setData([
+                'login' => trim($login),
+                'password' => trim($password),
+            ]);
+
+        return new AuthResponseAdapter($request, $request->send());
     }
 
     /**
