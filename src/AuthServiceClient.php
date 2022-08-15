@@ -3,6 +3,7 @@
 namespace Brezgalov\AuthServiceClient;
 
 use Brezgalov\AuthServiceClient\ResponseAdapters\AuthResponseAdapter;
+use Brezgalov\AuthServiceClient\ResponseAdapters\ProfileResponseAdapter;
 use Brezgalov\BaseApiClient\BaseApiClient;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Request;
@@ -85,12 +86,28 @@ class AuthServiceClient extends BaseApiClient
     }
 
     /**
+     * @deprecated
+     * @see AuthServiceClient::getProfileByToken
+     *
      * @param string $token
      * @return Request
      */
     public function getProfileByTokenRequest(string $token)
     {
         return $this->prepareRequest($this->urls->profile->get, ['token' => $token]);
+    }
+
+    /**
+     * @param string $token
+     * @return ProfileResponseAdapter
+     * @throws InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function getProfileByToken(string $token)
+    {
+        $request = $this->prepareRequest($this->urls->profile->get, ['token' => $token]);
+
+        return new ProfileResponseAdapter($request, $request->send());
     }
 
     /**
