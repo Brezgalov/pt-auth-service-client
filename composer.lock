@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35e3a5a36dacab90feb28b79fa7f50a0",
+    "content-hash": "000b3fa9a8c23c64846083f44433e1a9",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -86,13 +86,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Brezgalov/brezgalov-yii2-base-api-client.git",
-                "reference": "ffbe496ccfe7ddc59e4c3dedf2295e582cfb3b4d"
+                "url": "https://github.com/Brezgalov/yii2-base-api-client.git",
+                "reference": "5b95269ad69b28c9fb86012e54ff89ddb21a68cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brezgalov/brezgalov-yii2-base-api-client/zipball/ffbe496ccfe7ddc59e4c3dedf2295e582cfb3b4d",
-                "reference": "ffbe496ccfe7ddc59e4c3dedf2295e582cfb3b4d",
+                "url": "https://api.github.com/repos/Brezgalov/yii2-base-api-client/zipball/5b95269ad69b28c9fb86012e54ff89ddb21a68cf",
+                "reference": "5b95269ad69b28c9fb86012e54ff89ddb21a68cf",
                 "shasum": ""
             },
             "require": {
@@ -122,10 +122,10 @@
             ],
             "description": "base component for api clients",
             "support": {
-                "issues": "https://github.com/Brezgalov/brezgalov-yii2-base-api-client/issues",
-                "source": "https://github.com/Brezgalov/brezgalov-yii2-base-api-client/tree/master"
+                "issues": "https://github.com/Brezgalov/yii2-base-api-client/issues",
+                "source": "https://github.com/Brezgalov/yii2-base-api-client/tree/master"
             },
-            "time": "2022-07-28T11:41:55+00:00"
+            "time": "2022-08-17T09:38:33+00:00"
         },
         {
             "name": "cebe/markdown",

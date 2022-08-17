@@ -2,7 +2,7 @@
 
 namespace Brezgalov\AuthServiceClient\ResponseAdapters;
 
-use yii\httpclient\Response;
+use Brezgalov\BaseApiClient\ResponseAdapters\BaseResponseAdapter;
 
 /**
  * Class AuthResponseAdapter

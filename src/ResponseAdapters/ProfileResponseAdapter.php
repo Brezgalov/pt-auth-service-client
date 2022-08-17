@@ -2,6 +2,8 @@
 
 namespace Brezgalov\AuthServiceClient\ResponseAdapters;
 
+use Brezgalov\BaseApiClient\ResponseAdapters\BaseResponseAdapter;
+
 class ProfileResponseAdapter extends BaseResponseAdapter
 {
     /**
