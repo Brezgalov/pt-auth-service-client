@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "000b3fa9a8c23c64846083f44433e1a9",
+    "content-hash": "e0af49aa237bd89343143fcd5efb2505",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -29,16 +29,16 @@
         },
         {
             "name": "bower-asset/jquery",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
+                "url": "git@github.com:jquery/jquery-dist.git",
+                "reference": "3711efedf0ca2e998cd0417324f717f2e0b828ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/e786e3d9707ffd9b0dd330ca135b66344dcef85a",
-                "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/3711efedf0ca2e998cd0417324f717f2e0b828ec",
+                "reference": "3711efedf0ca2e998cd0417324f717f2e0b828ec"
             },
             "type": "bower-asset",
             "license": [
@@ -83,16 +83,16 @@
         },
         {
             "name": "brezgalov/yii2-base-api-client",
-            "version": "dev-master",
+            "version": "v0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Brezgalov/yii2-base-api-client.git",
-                "reference": "5b95269ad69b28c9fb86012e54ff89ddb21a68cf"
+                "reference": "fd3e40052d119cfd6e2acc49337937cbc1071dff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Brezgalov/yii2-base-api-client/zipball/5b95269ad69b28c9fb86012e54ff89ddb21a68cf",
-                "reference": "5b95269ad69b28c9fb86012e54ff89ddb21a68cf",
+                "url": "https://api.github.com/repos/Brezgalov/yii2-base-api-client/zipball/fd3e40052d119cfd6e2acc49337937cbc1071dff",
+                "reference": "fd3e40052d119cfd6e2acc49337937cbc1071dff",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,6 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -123,9 +122,9 @@
             "description": "base component for api clients",
             "support": {
                 "issues": "https://github.com/Brezgalov/yii2-base-api-client/issues",
-                "source": "https://github.com/Brezgalov/yii2-base-api-client/tree/master"
+                "source": "https://github.com/Brezgalov/yii2-base-api-client/tree/v0.1"
             },
-            "time": "2022-08-17T09:38:33+00:00"
+            "time": "2022-09-08T10:22:11+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -294,16 +293,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.45",
+            "version": "2.0.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "e2223d4085e5612aa616635f8fcaf478607f62e8"
+                "reference": "d73259c3bc886648a6875109f9f09cddeff03708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e2223d4085e5612aa616635f8fcaf478607f62e8",
-                "reference": "e2223d4085e5612aa616635f8fcaf478607f62e8",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d73259c3bc886648a6875109f9f09cddeff03708",
+                "reference": "d73259c3bc886648a6875109f9f09cddeff03708",
                 "shasum": ""
             },
             "require": {
@@ -412,7 +411,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-11T13:12:40+00:00"
+            "time": "2022-08-18T22:18:45+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -577,9 +576,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "brezgalov/yii2-base-api-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
