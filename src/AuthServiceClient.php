@@ -7,7 +7,6 @@ use Brezgalov\AuthServiceClient\ResponseAdapters\ProfileResponseAdapter;
 use Brezgalov\BaseApiClient\BaseApiClient;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Request;
-use yii\httpclient\Response;
 
 class AuthServiceClient extends BaseApiClient
 {
@@ -306,7 +305,7 @@ class AuthServiceClient extends BaseApiClient
      * @return \yii\httpclient\Message|Request
      * @throws \yii\base\InvalidConfigException
      */
-    public function prepareRequest(string $route, array $queryParams = [], Request $request = null): Response
+    public function prepareRequest(string $route, array $queryParams = [], Request $request = null): Request
     {
         if ($this->appEnvKey) {
             $queryParams[$this->appEnvKeyParameterName] = $this->appEnvKey;
